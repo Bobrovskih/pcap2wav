@@ -1,0 +1,7 @@
+.vscode
+1994581019
+tmp
+etc
+node_modules
+!.gitkeep
+files/*

@@ -1,0 +1,41 @@
+{
+  "name": "pcap2wav",
+  "version": "1.0.0",
+  "description": "Extract wav from pcap (rtp)",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --timeout 5000 -r ts-node/register ./**/*.spec.ts",
+    "lint": "tslint -p . -c tslint.json",
+    "lint:fix": "tslint -p . -c tslint.json --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bobrovskih/pcap2wav.git"
+  },
+  "keywords": [
+    "wav",
+    "pcap",
+    "rtp",
+    "convert",
+    "extract"
+  ],
+  "author": "Bobrovskih A.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Bobrovskih/pcap2wav/issues"
+  },
+  "homepage": "https://github.com/Bobrovskih/pcap2wav#readme",
+  "dependencies": {
+    "debug": "^3.1.0",
+    "ts-node": "^7.0.0",
+    "typescript": "^2.9.2"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.1.4",
+    "@types/mocha": "^5.2.4",
+    "@types/node": "^10.5.2",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0",
+    "tslint": "^5.10.0"
+  }
+}
