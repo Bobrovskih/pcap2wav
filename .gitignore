@@ -3,5 +3,5 @@
 tmp
 etc
 node_modules
-!.gitkeep
 files/*
+!.gitkeep
