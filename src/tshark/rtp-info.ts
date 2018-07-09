@@ -1,9 +1,10 @@
 import { helpers } from '../helpers';
 
 const debug = require('debug')('pcap2wav:tshark:rtp-info');
+import { RtpInfoOptions, RtpInfoData } from '../typings';
 
 class RtpInfo {
-    public async init(options: any) {
+    public async init(options: RtpInfoOptions) {
         const pcap = options.pcap;
         const command = `tshark -r ${pcap} -qz rtp,streams`;
         const { stderr, stdout } = await helpers.cp.execAsync(command);
@@ -17,7 +18,7 @@ class RtpInfo {
             stderr,
         };
     }
-    private parser(input: string) {
+    private parser(input: string): RtpInfoData[] {
         const rows = input.split('\r\n').slice(2, -2);
         const columns = rows.map((row) => row.trim().split(/\s+/));
         const result = columns.map((column) => {

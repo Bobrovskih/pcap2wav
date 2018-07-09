@@ -1,12 +1,14 @@
 import { tshark } from '../tshark';
 import { PcapToWav } from './pcap-to-wav';
 
-const pcap2wav = async (options: any) => {
+import { Pcap2WavOptions, RtpInfoOptions } from '../typings';
+
+const pcap2wav = async (options: Pcap2WavOptions) => {
     const p2w = new PcapToWav(options);
     return await p2w.convert();
 };
 
-const rtpInfo = async (options: any) => {
+const rtpInfo = async (options: RtpInfoOptions) => {
     return await tshark.rtpInfo(options);
 };
 

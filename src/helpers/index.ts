@@ -24,6 +24,13 @@ class Helpers {
         const now = Date.now();
         return now + '' + rand;
     }
+
+    public typeOf(variable: any) {
+        const type: string = Object.prototype.toString.call(variable);
+        return type
+            .slice(8, -1)
+            .toLowerCase();
+    }
 }
 
 const helpers = new Helpers();
