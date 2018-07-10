@@ -1,4 +1,5 @@
  [![npm version](https://badge.fury.io/js/pcap2wav.svg)](https://www.npmjs.com/package/pcap2wav) [![Build status branch:master](https://travis-ci.org/Bobrovskih/pcap2wav.svg?branch=master)](https://travis-ci.org/Bobrovskih/pcap2wav)
+ [![coverage](https://codecov.io/gh/Bobrovskih/pcap2wav/branch/master/graph/badge.svg)](https://codecov.io/gh/Bobrovskih/pcap2wav)
 
 ## Требования
  - nodejs >= 8.0.0 
