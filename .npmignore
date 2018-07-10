@@ -4,6 +4,6 @@ files/*
 coverage.lcov
 .nyc_output
 coverage
-out
+src
 
 !.gitkeep
