@@ -1,0 +1,6 @@
+--require ts-node/register
+--full-trace
+--bail
+--timeout 10000
+
+src/**/*.spec.ts

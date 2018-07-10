@@ -4,4 +4,8 @@ tmp
 etc
 node_modules
 files/*
+coverage.lcov
+.nyc_output
+coverage
+
 !.gitkeep
