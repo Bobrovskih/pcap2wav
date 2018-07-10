@@ -22,8 +22,11 @@ class PcapToWav {
         this.options = options || {};
         this.opId = helpers.random();
         this.filesDir = path.resolve(__dirname, '../../files');
+        debug('this.filesDir', this.filesDir);
         this.options.pcap = path.resolve(this.options.pcap);
+        debug('this.options.pcap', this.options.pcap);
         this.wav = this.options.wav || path.resolve(this.filesDir, `${this.opId}.wav`);
+        debug('this.wav', this.wav);
         this.info = [];
         this.rtps = [];
     }
@@ -45,6 +48,7 @@ class PcapToWav {
     private async loadInfo() {
         const { info } = await tshark.rtpInfo(this.options);
         this.info = info;
+        debug('this.info.length', this.info.length);
     }
 
     private filterInfo() {
@@ -58,10 +62,12 @@ class PcapToWav {
         this.info = this.info.filter((stream) =>
             filters.some((filter) =>
                 filter.ssrc.toLowerCase() === stream.ssrc.toLowerCase() && filter.dstPort === stream.dstPort));
+        debug('filterInfo this.info.length', this.info.length);
     }
 
     private async loadRtps() {
         this.rtps = await Promise.all(this.info.map(async (rtp, i) => {
+            debug('loadRtp i', i, 'rtp.ssrc', rtp.ssrc);
             const payloadType = helpers.payloadTypes[rtp.codec];
             const codecFile = path.resolve(this.filesDir, `${this.opId}_${i}.${rtp.codec}`);
             const wavFile = path.resolve(this.filesDir, `${this.opId}_${i}.wav`);
@@ -85,6 +91,7 @@ class PcapToWav {
 
     private async createWavs() {
         await Promise.all(this.rtps.map(async (rtp) => {
+            debug('create wav rtp.ssrc', rtp.ssrc);
             await helpers.fs.writeFileAsync(rtp.codecFile, rtp.hexPayloads, { encoding: 'ascii' });
             await sox.convertToWav(rtp.codec, rtp.codecFile, rtp.wavFile);
         }));
@@ -97,9 +104,11 @@ class PcapToWav {
             await sox.mergeWavs(wavPaths, this.wav);
         }
         if (this.rtps.length === 1) {
+            debug('this.rtps.length === 1. copying one rtp in wav');
             const data = await helpers.fs.readFileAsync(this.rtps[0].wavFile);
             await helpers.fs.writeFileAsync(this.wav, data);
         }
+        throw Error(`cannot merge wav, this.rtps.length: ${this.rtps.length}`);
     }
 
 }
