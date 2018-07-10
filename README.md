@@ -14,7 +14,7 @@ const pcap = '/absolute/path/to/pcap/file.pcap';
 const options = { pcap };
 const { success, wav } = await pcap2wav(options);
 console.log(success); // => true
-console.log(wav); // /absolute/path/to/wav/file.wav
+console.log(wav); // => '/absolute/path/to/wav/file.wav'
 ```
 
 | Параметр  | Тип  | Описание |

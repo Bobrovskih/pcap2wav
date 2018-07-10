@@ -7,7 +7,8 @@
     "test": "mocha --opts ./mocha.opts",
     "lint": "tslint -p . -c tslint.json",
     "lint:fix": "tslint -p . -c tslint.json --fix",
-    "coverage": "nyc mocha --opts ./mocha.opts > coverage.lcov && codecov"
+    "cov": "nyc npm test",
+    "coverage": "nyc npm test && nyc report --reporter=text-lcov > coverage.lcov && codecov"
   },
   "repository": {
     "type": "git",
