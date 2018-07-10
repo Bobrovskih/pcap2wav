@@ -4,7 +4,7 @@ import * as path from 'path';
 import { expect } from 'chai';
 import { tshark } from './';
 
-describe.only('tshark', () => {
+describe('tshark', () => {
     const pcap = path.resolve(__dirname, '../../samples/aaa.pcap');
     it('rtpInfo', async () => {
         const result = await tshark.rtpInfo({ pcap });

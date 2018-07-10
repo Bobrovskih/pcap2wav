@@ -4,7 +4,7 @@
   "description": "Extract wav from pcap (rtp)",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --timeout 5000 -r ts-node/register ./**/*.spec.ts",
+    "test": "mocha --timeout 5000 -r ts-node/register './**/*.spec.ts'",
     "lint": "tslint -p . -c tslint.json",
     "lint:fix": "tslint -p . -c tslint.json --fix"
   },
