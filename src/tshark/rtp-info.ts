@@ -1,4 +1,5 @@
 import { helpers } from '../helpers';
+import * as os from 'os';
 
 const debug = require('debug')('pcap2wav:tshark:rtp-info');
 import { RtpInfoOptions, RtpInfoData } from '../typings';
@@ -19,8 +20,8 @@ class RtpInfo {
         };
     }
     private parser(input: string): RtpInfoData[] {
-        debug('parser input: ', input);
-        const rows = input.split(/\r?\n/).slice(2, -2);
+        debug('parser input:', os.EOL, input);
+        const rows = input.split(os.EOL).slice(2, -2);
         const columns = rows.map((row) => row.trim().split(/\s+/));
         const result = columns.map((column) => {
             const [

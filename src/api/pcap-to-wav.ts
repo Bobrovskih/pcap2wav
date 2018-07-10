@@ -102,11 +102,13 @@ class PcapToWav {
             debug(`merging ${this.rtps.length} wavs into one`);
             const wavPaths = this.rtps.map((rtp) => rtp.wavFile).join(' ');
             await sox.mergeWavs(wavPaths, this.wav);
+            return;
         }
         if (this.rtps.length === 1) {
             debug('this.rtps.length === 1. copying one rtp in wav');
             const data = await helpers.fs.readFileAsync(this.rtps[0].wavFile);
             await helpers.fs.writeFileAsync(this.wav, data);
+            return;
         }
         throw Error(`cannot merge wav, this.rtps.length: ${this.rtps.length}`);
     }
