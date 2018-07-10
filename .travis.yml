@@ -2,5 +2,11 @@ language: node_js
 node_js:
   - "8.0.0"
 
+branches:
+  only:
+    - master
+    - dev
+
 before_install:
   - sudo apt-get install -y tshark sox
+
