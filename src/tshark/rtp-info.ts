@@ -19,7 +19,8 @@ class RtpInfo {
         };
     }
     private parser(input: string): RtpInfoData[] {
-        const rows = input.split('\r\n').slice(2, -2);
+        debug('parser input: ', input);
+        const rows = input.split(/\r?\n/).slice(2, -2);
         const columns = rows.map((row) => row.trim().split(/\s+/));
         const result = columns.map((column) => {
             const [
