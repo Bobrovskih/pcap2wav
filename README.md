@@ -11,11 +11,9 @@
 
 ## Использование
 ```javascript
-const pcap = '/absolute/path/to/pcap/file.pcap';
-const options = { pcap };
+const options = { pcap: '/absolute/path/to/pcap/file.pcap' };
 const { success, wav } = await pcap2wav(options);
-console.log(success); // => true
-console.log(wav); // => '/absolute/path/to/wav/file.wav'
+console.log(success, wav); // => true, '/absolute/path/to/wav/file.wav'
 ```
 
 | Параметр  | Тип  | Описание |

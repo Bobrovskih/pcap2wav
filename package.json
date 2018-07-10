@@ -1,6 +1,6 @@
 {
   "name": "pcap2wav",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Extract wav from pcap (rtp)",
   "main": "index.js",
   "scripts": {
