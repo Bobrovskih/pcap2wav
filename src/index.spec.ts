@@ -16,7 +16,7 @@ describe('pcap2wav', () => {
         const pcap = path.resolve(__dirname, '../samples/SIP_CALL_RTP_G711.pcap');
         const result = await pcap2wav({ pcap });
         const { size } = fs.statSync(result.wav);
-        expect(139184).equal(size);
+        expect(417436).equal(size);
         expect(true).equal(/\.wav$/.test(result.wav));
     });
     it('SIP_CALL_RTP_G711.pcap, only 1 rtp', async () => {
