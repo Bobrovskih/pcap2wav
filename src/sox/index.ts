@@ -9,7 +9,7 @@ class Sox {
     }
 
     public async mergeWavs(inputWavPaths: string, wav: string) {
-        const command = `sox -m ${inputWavPaths} ${wav}`;
+        const command = `sox --combine merge ${inputWavPaths} ${wav}`;
         const { stderr, stdout } = await helpers.cp.execAsync(command);
         debug(stderr, stdout);
     }
