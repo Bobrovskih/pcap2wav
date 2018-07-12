@@ -2,6 +2,7 @@ declare class Pcap2WavOptions {
     pcap: string;
     wav?: string;
     filters?: RtpInfoData[] | Filters[];
+    clean?: boolean;
 }
 
 

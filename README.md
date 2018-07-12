@@ -20,3 +20,4 @@ console.log(success, wav); // => true, '/absolute/path/to/wav/file.wav'
 | --------- | ---- | -------- |
 | options | <code>object</code> | параметры |
 | options.pcap | <code>string</code> | абсолютный путь до .pcap файла |
+| options.clean| <code>boolean</code> | очищать мусор из рабочей папки |

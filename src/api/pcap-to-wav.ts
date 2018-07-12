@@ -24,6 +24,7 @@ class PcapToWav {
         this.filesDir = path.resolve(__dirname, '../../files');
         debug('this.filesDir', this.filesDir);
         this.options.pcap = path.resolve(this.options.pcap);
+        this.options.clean = this.options.clean === false ? false : true;
         debug('this.options.pcap', this.options.pcap);
         this.wav = this.options.wav || path.resolve(this.filesDir, `${this.opId}.wav`);
         debug('this.wav', this.wav);
@@ -32,17 +33,35 @@ class PcapToWav {
     }
 
     public async convert() {
-        debug('convert start');
-        await this.loadInfo();
-        this.filterInfo();
-        await this.loadRtps();
-        await this.createWavs();
-        await this.mergeWavs();
-        debug('convert finish');
-        const { wav } = this;
-        const success = true;
-        const rtpCount = this.rtps.length;
-        return { success, wav, rtpCount };
+        try {
+            debug('convert start');
+            await this.loadInfo();
+            this.filterInfo();
+            await this.loadRtps();
+            await this.createWavs();
+            await this.mergeWavs();
+            debug('convert finish');
+            const { wav } = this;
+            const success = true;
+            const rtpCount = this.rtps.length;
+            await this.cleanTrash();
+            return {
+                success,
+                wav,
+                rtpCount,
+            };
+        } catch (error) {
+            await this.cleanTrash();
+            const success = false;
+            const wav = '';
+            const rtpCount = null;
+            return {
+                success,
+                error,
+                wav,
+                rtpCount,
+            };
+        }
     }
 
     private async loadInfo() {
@@ -111,6 +130,21 @@ class PcapToWav {
             return;
         }
         throw Error(`cannot merge wav, this.rtps.length: ${this.rtps.length}`);
+    }
+
+    private async cleanTrash() {
+        if (!this.options.clean) {
+            return;
+        }
+        await Promise.all(this.rtps.map(async (rtp) => {
+            const trashs = [rtp.wavFile, rtp.codecFile];
+            await Promise.all(trashs.map(async (trash) => {
+                const exists = await helpers.fs.existsAsync(trash);
+                if (exists) {
+                    await helpers.fs.unlinkAsync(trash);
+                }
+            }));
+        }));
     }
 
 }

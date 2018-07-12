@@ -8,6 +8,8 @@ class Helpers {
         return {
             writeFileAsync: promisify(fs.writeFile),
             readFileAsync: promisify(fs.readFile),
+            unlinkAsync: promisify(fs.unlink),
+            existsAsync: promisify(fs.exists),
         };
     }
     get cp() {
