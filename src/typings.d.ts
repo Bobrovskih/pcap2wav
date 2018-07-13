@@ -5,10 +5,10 @@ declare class Pcap2WavOptions {
     clean?: boolean;
 }
 
-
 declare class Filters {
     ssrc: string;
     dstPort: string;
+    dstIp: string;
 }
 
 declare class RtpInfoOptions {

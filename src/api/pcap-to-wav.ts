@@ -78,9 +78,15 @@ class PcapToWav {
         if (filters.length < 1) {
             return;
         }
-        this.info = this.info.filter((stream) =>
-            filters.some((filter) =>
-                filter.ssrc.toLowerCase() === stream.ssrc.toLowerCase() && filter.dstPort === stream.dstPort));
+        this.info = this.info.filter((stream) => {
+            return filters.some((filter) => {
+                const ssrcEqual = filter.ssrc.toLowerCase() === stream.ssrc.toLowerCase();
+                const dstPortEqual = filter.dstPort === stream.dstPort;
+                const dstIpEqual = filter.dstIp === stream.dstIp;
+                const hit = ssrcEqual && dstIpEqual && dstPortEqual;
+                return hit;
+            });
+        });
         debug('filterInfo this.info.length', this.info.length);
     }
 
@@ -90,7 +96,13 @@ class PcapToWav {
             const payloadType = helpers.payloadTypes[rtp.codec];
             const codecFile = path.resolve(this.filesDir, `${this.opId}_${i}.${rtp.codec}`);
             const wavFile = path.resolve(this.filesDir, `${this.opId}_${i}.wav`);
-            const payloads = await tshark.extractPayload({ pcap: this.options.pcap, ssrc: rtp.ssrc });
+            const opts = {
+                pcap: this.options.pcap,
+                ssrc: rtp.ssrc,
+                dstIp: rtp.dstIp,
+                dstPort: rtp.dstPort,
+            };
+            const payloads = await tshark.extractPayload(opts);
             const hexPayloads = payloads
                 .split(':')
                 .map((payload) => String.fromCharCode(parseInt(payload, 16)))

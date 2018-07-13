@@ -16,9 +16,11 @@ describe('PcapToWav', () => {
             {
                 dstPort: '8000',
                 ssrc: '0x58F33DEA',
+                dstIp: '200.57.7.204',
             }, {
                 dstPort: '40362',
                 ssrc: '0x00002E3D',
+                dstIp: '200.57.7.196',
             },
         ];
         const pcap = path.resolve(__dirname, '../../samples/SIP_CALL_RTP_G711.pcap');
