@@ -2,22 +2,24 @@ import * as cp from 'child_process';
 import * as fs from 'fs';
 import { promisify } from 'util';
 import { payloadTypes } from './payload-types';
+import { existsAsync } from './exists-async';
 
 class Helpers {
-    get fs() {
+    public get fs() {
         return {
             writeFileAsync: promisify(fs.writeFile),
             readFileAsync: promisify(fs.readFile),
             unlinkAsync: promisify(fs.unlink),
-            existsAsync: promisify(fs.exists),
+            statAsync: promisify(fs.stat),
+            existsAsync,
         };
     }
-    get cp() {
+    public get cp() {
         return {
             execAsync: promisify(cp.exec),
         };
     }
-    get payloadTypes(): any {
+    public get payloadTypes(): any {
         return payloadTypes;
     }
 
