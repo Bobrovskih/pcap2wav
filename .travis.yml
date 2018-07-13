@@ -12,5 +12,8 @@ branches:
 before_install:
   - sudo apt-get install -y tshark sox
 
+before_script:
+  - npm run lint
+
 after_success:
   - npm run coverage
