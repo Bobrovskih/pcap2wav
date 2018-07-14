@@ -2,7 +2,12 @@
  [![coverage](https://codecov.io/gh/Bobrovskih/pcap2wav/branch/master/graph/badge.svg)](https://codecov.io/gh/Bobrovskih/pcap2wav)
 
 # pcap2wav
-Извлекает из pcap файла аудио в wav формате
+Извлекает из pcap файла (rtp) аудио в wav формате
+
+Поддерживаемые кодеки:
+ - PCMA
+ - PCMU
+ - GSM
 
 ## Требования
  - nodejs >= 8.0.0 

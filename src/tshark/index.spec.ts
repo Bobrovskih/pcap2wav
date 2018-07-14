@@ -17,8 +17,6 @@ describe('tshark', () => {
                     dstIp: '212.242.33.36',
                     dstPort: '40392',
                     ssrc: '0x3796CB71',
-                    codecCode: 'ITU-T',
-                    codecNumber: 'G.711',
                     codec: 'PCMA',
                     packets: '9',
                     lostPackets: '0',
@@ -53,5 +51,32 @@ describe('tshark', () => {
             '',
         ].join(os.EOL);
         expect(due).equal(result);
+    });
+
+    it('rtpInfo GSM', async () => {
+        const gsm = path.resolve(__dirname, '../../samples/sip-rtp-gsm.pcap');
+        const result = await tshark.rtpInfo({ pcap: gsm });
+        const due = {
+            info: [
+                {
+                    srcIp: '10.0.2.15',
+                    srcPort: '18924',
+                    dstIp: '10.0.2.20',
+                    dstPort: '6000',
+                    ssrc: '0x043DAAF1',
+                    codec: 'GSM',
+                    packets: '425',
+                    lostPackets: '0',
+                    lostPercent: '(0.0%)',
+                    maxDelta: '21.72',
+                    maxJitter: '0.21',
+                    meanJitter: '0.02',
+                    problems: undefined,
+                },
+            ],
+        };
+        expect(true).equal(result.success);
+        expect(due.info).deep.equal(result.info);
+        expect('').equal(result.stderr);
     });
 });

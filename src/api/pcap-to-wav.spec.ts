@@ -11,6 +11,31 @@ describe('PcapToWav', () => {
         expect(1).equal(result.rtpCount);
     });
 
+    it('pcma + pcmu', async () => {
+        const pcap = path.resolve(__dirname, '../../samples/sip-rtp-g711.pcap');
+        const p2w = new PcapToWav({ pcap });
+        const result = await p2w.convert();
+        const { size } = await helpers.fs.statAsync(result.wav);
+        expect(135210).equal(size);
+    });
+
+    it('only pcmu', async () => {
+        const pcap = path.resolve(__dirname, '../../samples/sip-rtp-g711.pcap');
+        const filters = [{ ssrc: '0x343da99b', dstIp: '10.0.2.20', dstPort: '6000' }];
+        const p2w = new PcapToWav({ pcap, filters });
+        const result = await p2w.convert();
+        const { size } = await helpers.fs.statAsync(result.wav);
+        expect(67634).equal(size);
+    });
+
+    it('gsm', async () => {
+        const pcap = path.resolve(__dirname, '../../samples/sip-rtp-gsm.pcap');
+        const p2w = new PcapToWav({ pcap });
+        const result = await p2w.convert();
+        const { size } = await helpers.fs.statAsync(result.wav);
+        expect(60).equal(size);
+    });
+
     it('filter', async () => {
         const filters = [
             {

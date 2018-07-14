@@ -21,8 +21,6 @@ declare class RtpInfoData {
     dstIp: string;
     dstPort: string;
     ssrc: string;
-    codecCode: string;
-    codecNumber: string;
     codec: string;
     packets: string
     lostPackets: string;

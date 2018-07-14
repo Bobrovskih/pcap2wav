@@ -19,9 +19,17 @@ class RtpInfo {
             stderr,
         };
     }
+
+    private clearCodec(input: string) {
+        return input
+            .replace(/GSM\s+06.10/gi, 'GSM')
+            .replace(/ITU-T\s+G.711\s+PCMA/gi, 'PCMA')
+            .replace(/ITU-T\s+G.711\s+PCMU/gi, 'PCMU')
+            .replace(/ITU-T\s+G.729/gi, 'G729');
+    }
     private parser(input: string): RtpInfoData[] {
         debug('parser input:', os.EOL, input);
-        const rows = input.split(os.EOL).slice(2, -2);
+        const rows = this.clearCodec(input).split(os.EOL).slice(2, -2);
         const columns = rows.map((row) => row.trim().split(/\s+/));
         const result = columns.map((column) => {
             const [
@@ -30,8 +38,6 @@ class RtpInfo {
                 dstIp,
                 dstPort,
                 ssrc,
-                codecCode,
-                codecNumber,
                 codec,
                 packets,
                 lostPackets,
@@ -48,8 +54,6 @@ class RtpInfo {
                 dstIp,
                 dstPort,
                 ssrc,
-                codecCode,
-                codecNumber,
                 codec,
                 packets,
                 lostPackets,

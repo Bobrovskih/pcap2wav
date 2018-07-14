@@ -15,11 +15,15 @@ class Sox {
     }
 
     private createConvertToWavCommand(codec: string, codecFile: string, wavFile: string) {
+        debug('createConvertToWavCommand codec:', codec);
         if (codec === 'PCMA') {
             return this.escapingBackslash(`sox -t al -r 8000 -c 1 ${codecFile} ${wavFile}`);
         }
         if (codec === 'PCMU') {
             return this.escapingBackslash(`sox -t ul -r 8000 -c 1 ${codecFile} ${wavFile}`);
+        }
+        if (codec === 'GSM') {
+            return this.escapingBackslash(`sox -t gsm -r 8000 -c 1 ${codecFile} ${wavFile}`);
         }
         throw Error(`cannot define convert command for codec: ${codec}`);
     }
