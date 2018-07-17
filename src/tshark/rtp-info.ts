@@ -86,7 +86,7 @@ class RtpInfo {
     private rtpStartParser(input: string) {
         debug('rtpStartParser input', input);
         const [timeRaw] = input.split(os.EOL);
-        const [time] = timeRaw.split(',');
+        const [time] = timeRaw.split(/[,\.]/);
         const timestamp = +new Date(time);
         return timestamp;
     }
