@@ -51,6 +51,7 @@ class PcapToWav {
                 rtpCount,
             };
         } catch (error) {
+            debug('convert error', error);
             await this.cleanTrash();
             const success = false;
             const wav = '';
