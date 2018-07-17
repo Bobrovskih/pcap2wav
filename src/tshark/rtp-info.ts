@@ -75,7 +75,7 @@ class RtpInfo {
     }
 
     private async execRtpStart(pcap: string) {
-        const command = `tshark -r ${pcap} -Y "rtp" -o "gui.column.format:\"Time\",\"%Yt\""`;
+        const command = `tshark -r ${pcap} -Y "rtp" -o "gui.column.format:\"Time\",\"%Yt\"" | head -n 1`;
         const { stderr, stdout } = await helpers.cp.execAsync(command);
         if (stderr) { debug(stderr); }
         const success = !stderr;
