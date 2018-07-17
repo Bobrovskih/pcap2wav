@@ -30,7 +30,7 @@ describe('tshark', () => {
         };
         expect(true).equal(result.success);
         expect(due.info).deep.equal(result.info);
-        expect('').equal(result.stderr);
+        // expect('').equal(result.stderr);
     });
 
     it('extractPayload', async () => {
@@ -77,6 +77,11 @@ describe('tshark', () => {
         };
         expect(true).equal(result.success);
         expect(due.info).deep.equal(result.info);
-        expect('').equal(result.stderr);
+        // expect('').equal(result.stderr);
+    });
+
+    it('rtp start', async () => {
+        const result = await tshark.rtpInfo({ pcap });
+        expect(1120470985000).equal(result.rtpStart);
     });
 });
